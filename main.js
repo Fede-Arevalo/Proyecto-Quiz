@@ -7,109 +7,120 @@ const notaElement = document.querySelector(".nota");
 
 let currentQuestionIndex;
 let nota = 0;
-const questions = [
-  {
-    category: "Entertainment: Television",
-    type: "multiple",
-    difficulty: "medium",
-    question: "From what show is the character James Doakes? ",
-    correct_answer: "Dexter",
-    incorrect_answers: [
-      "Marvels Daredevil",
-      "Boardwalk Empire",
-      "The Walking Dead",
-    ],
-  },
-  {
-    category: "Entertainment: Film",
-    type: "multiple",
-    difficulty: "easy",
-    question: "Which of these movies did Jeff Bridges not star in?",
-    correct_answer: "The Hateful Eight",
-    incorrect_answers: ["Tron: Legacy", "The Giver", "True Grit"],
-  },
-  {
-    category: "Entertainment: Video Games",
-    type: "multiple",
-    difficulty: "medium",
-    question:
-      "What is the full name of the protagonist from the SNES game Clock Tower?",
-    correct_answer: "Jennifer Simpson",
-    incorrect_answers: [
-      "Jennifer Barrows",
-      "Jennifer Cartwright",
-      "Jennifer Maxwell",
-    ],
-  },
-  {
-    category: "Entertainment: Board Games",
-    type: "multiple",
-    difficulty: "easy",
-    question:
-      "Which one of these is not a real game in the Dungeons Dragons series?",
-    correct_answer: "Extreme Dungeons &amp; Dragons",
-    incorrect_answers: [
-      "Advanced Dungeons &amp; Dragons",
-      "Dungeons &amp; Dragons 3.5th edition",
-      "Advanced Dungeons &amp; Dragons 2nd edition",
-    ],
-  },
-  {
-    category: "Geography",
-    type: "multiple",
-    difficulty: "medium",
-    question: "How tall is One World Trade Center in New York City?",
-    correct_answer: "1,776 ft",
-    incorrect_answers: ["1,888 ft", "1,225 ft", "1,960 ft"],
-  },
-  {
-    category: "History",
-    type: "multiple",
-    difficulty: "hard",
-    question:
-      "What was the code name for the Allied invasion of Southern France on August 15th, 1944?",
-    correct_answer: "Operation Dragoon",
-    incorrect_answers: [
-      "Operation Overlord",
-      "Operation Market Garden",
-      "Operation Torch",
-    ],
-  },
-  {
-    category: "Animals",
-    type: "boolean",
-    difficulty: "easy",
-    question: "The Killer Whale is considered a type of dolphin.",
-    correct_answer: "True",
-    incorrect_answers: ["False"],
-  },
-  {
-    category: "Entertainment: Japanese Anime & Manga",
-    type: "boolean",
-    difficulty: "easy",
-    question:
-      "In the To Love-Ru series, Golden Darkness is sent to kill Lala Deviluke.",
-    correct_answer: "False",
-    incorrect_answers: ["True"],
-  },
-  {
-    category: "Sports",
-    type: "multiple",
-    difficulty: "medium",
-    question: "Which car manufacturer won the 2017 24 Hours of Le Mans?",
-    correct_answer: "Porsche",
-    incorrect_answers: ["Toyota", "Audi", "Chevrolet"],
-  },
-  {
-    category: "Entertainment: Video Games",
-    type: "multiple",
-    difficulty: "hard",
-    question:
-      "Strangereal is a fictitious Earth-like world for which game series?",
-    correct_answer: "Ace Combat",
-    incorrect_answers: ["Jet Set Radio", "Deus Ex", "Crimson Skies"],
-  },
-];
+let questions = [];
+
+axios
+  .get("https://opentdb.com/api.php?amount=10")
+  .then((res) => {
+    questions = res.data.results;
+    console.log(questions)
+  })
+  .catch((err) => console.error(err));
+
+
+  // Array de 10 preguntas
+  // {
+  //   category: "Entertainment: Television",
+  //   type: "multiple",
+  //   difficulty: "medium",
+  //   question: "From what show is the character James Doakes? ",
+  //   correct_answer: "Dexter",
+  //   incorrect_answers: [
+  //     "Marvels Daredevil",
+  //     "Boardwalk Empire",
+  //     "The Walking Dead",
+  //   ],
+  // },
+  // {
+  //   category: "Entertainment: Film",
+  //   type: "multiple",
+  //   difficulty: "easy",
+  //   question: "Which of these movies did Jeff Bridges not star in?",
+  //   correct_answer: "The Hateful Eight",
+  //   incorrect_answers: ["Tron: Legacy", "The Giver", "True Grit"],
+  // },
+  // {
+  //   category: "Entertainment: Video Games",
+  //   type: "multiple",
+  //   difficulty: "medium",
+  //   question:
+  //     "What is the full name of the protagonist from the SNES game Clock Tower?",
+  //   correct_answer: "Jennifer Simpson",
+  //   incorrect_answers: [
+  //     "Jennifer Barrows",
+  //     "Jennifer Cartwright",
+  //     "Jennifer Maxwell",
+  //   ],
+  // },
+  // {
+  //   category: "Entertainment: Board Games",
+  //   type: "multiple",
+  //   difficulty: "easy",
+  //   question:
+  //     "Which one of these is not a real game in the Dungeons Dragons series?",
+  //   correct_answer: "Extreme Dungeons &amp; Dragons",
+  //   incorrect_answers: [
+  //     "Advanced Dungeons &amp; Dragons",
+  //     "Dungeons &amp; Dragons 3.5th edition",
+  //     "Advanced Dungeons &amp; Dragons 2nd edition",
+  //   ],
+  // },
+  // {
+  //   category: "Geography",
+  //   type: "multiple",
+  //   difficulty: "medium",
+  //   question: "How tall is One World Trade Center in New York City?",
+  //   correct_answer: "1,776 ft",
+  //   incorrect_answers: ["1,888 ft", "1,225 ft", "1,960 ft"],
+  // },
+  // {
+  //   category: "History",
+  //   type: "multiple",
+  //   difficulty: "hard",
+  //   question:
+  //     "What was the code name for the Allied invasion of Southern France on August 15th, 1944?",
+  //   correct_answer: "Operation Dragoon",
+  //   incorrect_answers: [
+  //     "Operation Overlord",
+  //     "Operation Market Garden",
+  //     "Operation Torch",
+  //   ],
+  // },
+  // {
+  //   category: "Animals",
+  //   type: "boolean",
+  //   difficulty: "easy",
+  //   question: "The Killer Whale is considered a type of dolphin.",
+  //   correct_answer: "True",
+  //   incorrect_answers: ["False"],
+  // },
+  // {
+  //   category: "Entertainment: Japanese Anime & Manga",
+  //   type: "boolean",
+  //   difficulty: "easy",
+  //   question:
+  //     "In the To Love-Ru series, Golden Darkness is sent to kill Lala Deviluke.",
+  //   correct_answer: "False",
+  //   incorrect_answers: ["True"],
+  // },
+  // {
+  //   category: "Sports",
+  //   type: "multiple",
+  //   difficulty: "medium",
+  //   question: "Which car manufacturer won the 2017 24 Hours of Le Mans?",
+  //   correct_answer: "Porsche",
+  //   incorrect_answers: ["Toyota", "Audi", "Chevrolet"],
+  // },
+  // {
+  //   category: "Entertainment: Video Games",
+  //   type: "multiple",
+  //   difficulty: "hard",
+  //   question:
+  //     "Strangereal is a fictitious Earth-like world for which game series?",
+  //   correct_answer: "Ace Combat",
+  //   incorrect_answers: ["Jet Set Radio", "Deus Ex", "Crimson Skies"],
+  // },
+
 
 // Ejemplo clase
 // {
