@@ -9,128 +9,15 @@ let currentQuestionIndex;
 let nota = 0;
 let questions = [];
 
+// Lectura de datos a través de API.
 axios
   .get("https://opentdb.com/api.php?amount=10")
   .then((res) => {
     questions = res.data.results;
-    console.log(questions)
   })
   .catch((err) => console.error(err));
 
-
-  // Array de 10 preguntas
-  // {
-  //   category: "Entertainment: Television",
-  //   type: "multiple",
-  //   difficulty: "medium",
-  //   question: "From what show is the character James Doakes? ",
-  //   correct_answer: "Dexter",
-  //   incorrect_answers: [
-  //     "Marvels Daredevil",
-  //     "Boardwalk Empire",
-  //     "The Walking Dead",
-  //   ],
-  // },
-  // {
-  //   category: "Entertainment: Film",
-  //   type: "multiple",
-  //   difficulty: "easy",
-  //   question: "Which of these movies did Jeff Bridges not star in?",
-  //   correct_answer: "The Hateful Eight",
-  //   incorrect_answers: ["Tron: Legacy", "The Giver", "True Grit"],
-  // },
-  // {
-  //   category: "Entertainment: Video Games",
-  //   type: "multiple",
-  //   difficulty: "medium",
-  //   question:
-  //     "What is the full name of the protagonist from the SNES game Clock Tower?",
-  //   correct_answer: "Jennifer Simpson",
-  //   incorrect_answers: [
-  //     "Jennifer Barrows",
-  //     "Jennifer Cartwright",
-  //     "Jennifer Maxwell",
-  //   ],
-  // },
-  // {
-  //   category: "Entertainment: Board Games",
-  //   type: "multiple",
-  //   difficulty: "easy",
-  //   question:
-  //     "Which one of these is not a real game in the Dungeons Dragons series?",
-  //   correct_answer: "Extreme Dungeons &amp; Dragons",
-  //   incorrect_answers: [
-  //     "Advanced Dungeons &amp; Dragons",
-  //     "Dungeons &amp; Dragons 3.5th edition",
-  //     "Advanced Dungeons &amp; Dragons 2nd edition",
-  //   ],
-  // },
-  // {
-  //   category: "Geography",
-  //   type: "multiple",
-  //   difficulty: "medium",
-  //   question: "How tall is One World Trade Center in New York City?",
-  //   correct_answer: "1,776 ft",
-  //   incorrect_answers: ["1,888 ft", "1,225 ft", "1,960 ft"],
-  // },
-  // {
-  //   category: "History",
-  //   type: "multiple",
-  //   difficulty: "hard",
-  //   question:
-  //     "What was the code name for the Allied invasion of Southern France on August 15th, 1944?",
-  //   correct_answer: "Operation Dragoon",
-  //   incorrect_answers: [
-  //     "Operation Overlord",
-  //     "Operation Market Garden",
-  //     "Operation Torch",
-  //   ],
-  // },
-  // {
-  //   category: "Animals",
-  //   type: "boolean",
-  //   difficulty: "easy",
-  //   question: "The Killer Whale is considered a type of dolphin.",
-  //   correct_answer: "True",
-  //   incorrect_answers: ["False"],
-  // },
-  // {
-  //   category: "Entertainment: Japanese Anime & Manga",
-  //   type: "boolean",
-  //   difficulty: "easy",
-  //   question:
-  //     "In the To Love-Ru series, Golden Darkness is sent to kill Lala Deviluke.",
-  //   correct_answer: "False",
-  //   incorrect_answers: ["True"],
-  // },
-  // {
-  //   category: "Sports",
-  //   type: "multiple",
-  //   difficulty: "medium",
-  //   question: "Which car manufacturer won the 2017 24 Hours of Le Mans?",
-  //   correct_answer: "Porsche",
-  //   incorrect_answers: ["Toyota", "Audi", "Chevrolet"],
-  // },
-  // {
-  //   category: "Entertainment: Video Games",
-  //   type: "multiple",
-  //   difficulty: "hard",
-  //   question:
-  //     "Strangereal is a fictitious Earth-like world for which game series?",
-  //   correct_answer: "Ace Combat",
-  //   incorrect_answers: ["Jet Set Radio", "Deus Ex", "Crimson Skies"],
-  // },
-
-
-// Ejemplo clase
-// {
-//   question: "What is 2 + 2?",
-//   answers: [
-//     { text: "4", correct: true },
-//     { text: "22", correct: false },
-//   ],
-// },
-
+// Botón para comenzar el Quiz.
 function startGame() {
   startButton.classList.add("hide");
   currentQuestionIndex = 0;
@@ -138,27 +25,38 @@ function startGame() {
   setNextQuestion();
 }
 
+// Mostrar pregunta.
 function showQuestion(questionObj) {
   questionDiv.innerText = questionObj.question;
-  //------------------------------------
-  const { correct_answer } = questionObj;  
-  const { incorrect_answers } = questionObj;  
-  const answers = [correct_answer, ...incorrect_answers]
-  //------------------------------------
+
+  // Desestructuración del objeto para juntar las respuestas.
+  const { correct_answer } = questionObj;
+  const { incorrect_answers } = questionObj;
+  const answers = [correct_answer, ...incorrect_answers];
+
+  // Posicionar aleatoreamente de las respuestas.
+  answers.sort(function (a, b) {
+    if (a > b) {
+      return 1;
+    }
+    if (a < b) {
+      return -1;
+    }
+    return 0;
+  });
+
+  // Creación de botones con las respuestas.
   answers.forEach((answer) => {
     const button = document.createElement("button");
     button.innerText = answer;
 
-    console.log(answer);
-
+    // Setear como respuesta correcta si en el objeto es "correct_answer:".
     if (answer == correct_answer) {
       button.dataset.correct = true;
     }
 
-    // cuando clique una respuesta llama a la función
-
+    // Al hacer click en una respuesta suma o resta puntuación.
     button.addEventListener("click", function () {
-      console.log(button.dataset.correct);
       if (button.dataset.correct == "true") {
         nota++;
         notaElement.innerHTML = "Tu puntuación: " + nota;
@@ -170,19 +68,19 @@ function showQuestion(questionObj) {
           notaElement.innerHTML = "Tu puntuación: " + nota;
         }
       }
-
       selectAnswer();
     });
-
     answerButtonsElement.appendChild(button);
   });
 }
 
+// Mostrar pregunta siguiente.
 function setNextQuestion() {
   resetState();
   showQuestion(questions[currentQuestionIndex]);
 }
 
+// Mostrar respuesta correcta en verde e icorrectas en rojo.
 function setStatusClass(element, correct) {
   //pinta la respuesta corre e incorrecta
   if (correct) {
@@ -192,6 +90,7 @@ function setStatusClass(element, correct) {
   }
 }
 
+// Función para seleccionar respuesta.
 function selectAnswer() {
   Array.from(answerButtonsElement.children).forEach((button) => {
     //llamamos a la función y le pasamos los botons y el botón correcto
@@ -209,13 +108,16 @@ function selectAnswer() {
   }
 }
 
+// Botón para comenzar el Quiz.
 startButton.addEventListener("click", startGame);
 
+// Botón para siguiente pregunta.
 nextButton.addEventListener("click", () => {
   currentQuestionIndex++;
   setNextQuestion();
 });
 
+// Esta función esconde el botón "Next" y quita las respuestas anteriores.
 function resetState() {
   nextButton.classList.add("hide"); //escondemos el botón next
   while (answerButtonsElement.firstChild) {
