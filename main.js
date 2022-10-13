@@ -111,12 +111,7 @@ const questions = [
   },
 ];
 
-// Es un array de objetos
-// question = PREGUNTA
-// correct_answer = RESPUESTA
-// incorrect_answers = arrayOpciones
-// >>> unir question y correct_answer para MOSTRAR
-
+// Ejemplo clase
 // {
 //   question: "What is 2 + 2?",
 //   answers: [
@@ -134,19 +129,11 @@ function startGame() {
 
 function showQuestion(question) {
   questionElement.innerText = question.question;
-
-  /////////////////////////////////
-
-  const [objeto] = questions;
- 
-  const { correct_answer } = objeto;
-  
-  const { incorrect_answers } = objeto;
-  
+  //------------------------------------
+  const { correct_answer } = question;  
+  const { incorrect_answers } = question;  
   const answers = [correct_answer, ...incorrect_answers]
-
-  ///////////////////////////////////
-
+  //------------------------------------
   answers.forEach((answer) => {
     const button = document.createElement("button");
     button.innerText = answer;
