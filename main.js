@@ -1,7 +1,7 @@
 const startButton = document.getElementById("start-btn");
 const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
-const questionElement = document.getElementById("question");
+const questionDiv = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
 const notaElement = document.querySelector(".nota");
 
@@ -127,11 +127,11 @@ function startGame() {
   setNextQuestion();
 }
 
-function showQuestion(question) {
-  questionElement.innerText = question.question;
+function showQuestion(questionObj) {
+  questionDiv.innerText = questionObj.question;
   //------------------------------------
-  const { correct_answer } = question;  
-  const { incorrect_answers } = question;  
+  const { correct_answer } = questionObj;  
+  const { incorrect_answers } = questionObj;  
   const answers = [correct_answer, ...incorrect_answers]
   //------------------------------------
   answers.forEach((answer) => {
