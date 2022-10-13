@@ -12,7 +12,7 @@ const questions = [
     category: "Entertainment: Television",
     type: "multiple",
     difficulty: "medium",
-    question: "From what show is the character &quot;James Doakes&quot;? ",
+    question: "From what show is the character James Doakes? ",
     correct_answer: "Dexter",
     incorrect_answers: [
       "Marvels Daredevil",
@@ -46,7 +46,7 @@ const questions = [
     type: "multiple",
     difficulty: "easy",
     question:
-      "Which one of these is not a real game in the Dungeons &amp; Dragons series?",
+      "Which one of these is not a real game in the Dungeons Dragons series?",
     correct_answer: "Extreme Dungeons &amp; Dragons",
     incorrect_answers: [
       "Advanced Dungeons &amp; Dragons",
@@ -88,7 +88,7 @@ const questions = [
     type: "boolean",
     difficulty: "easy",
     question:
-      "In the &quot;To Love-Ru&quot; series, Golden Darkness is sent to kill Lala Deviluke.",
+      "In the To Love-Ru series, Golden Darkness is sent to kill Lala Deviluke.",
     correct_answer: "False",
     incorrect_answers: ["True"],
   },
@@ -105,11 +105,25 @@ const questions = [
     type: "multiple",
     difficulty: "hard",
     question:
-      "&quot;Strangereal&quot; is a fictitious Earth-like world for which game series?",
+      "Strangereal is a fictitious Earth-like world for which game series?",
     correct_answer: "Ace Combat",
     incorrect_answers: ["Jet Set Radio", "Deus Ex", "Crimson Skies"],
   },
 ];
+
+// Es un array de objetos
+// question = PREGUNTA
+// correct_answer = RESPUESTA
+// incorrect_answers = arrayOpciones
+// >>> unir question y correct_answer para MOSTRAR
+
+// {
+//   question: "What is 2 + 2?",
+//   answers: [
+//     { text: "4", correct: true },
+//     { text: "22", correct: false },
+//   ],
+// },
 
 function startGame() {
   startButton.classList.add("hide");
@@ -120,13 +134,29 @@ function startGame() {
 
 function showQuestion(question) {
   questionElement.innerText = question.question;
-  question.answers.forEach((answer) => {
-    const button = document.createElement("button");
-    button.innerText = answer.text;
 
-    if (answer.correct) {
+  /////////////////////////////////
+
+  const [objeto] = questions;
+ 
+  const { correct_answer } = objeto;
+  
+  const { incorrect_answers } = objeto;
+  
+  const answers = [correct_answer, ...incorrect_answers]
+
+  ///////////////////////////////////
+
+  answers.forEach((answer) => {
+    const button = document.createElement("button");
+    button.innerText = answer;
+
+    console.log(answer);
+
+    if (answer == correct_answer) {
       button.dataset.correct = true;
     }
+
     // cuando clique una respuesta llama a la función
 
     button.addEventListener("click", function () {
