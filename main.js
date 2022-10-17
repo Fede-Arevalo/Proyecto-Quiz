@@ -14,15 +14,14 @@ function startGame() {
   startButton.classList.add("d-none");
 
   axios
-  .get("https://opentdb.com/api.php?amount=10")
-  .then((res) => {
-    questions = res.data.results;
-    currentQuestionIndex = 0;
-    questionContainerElement.classList.remove("hide");
-    setNextQuestion();
-  })
-  .catch((err) => console.error(err));
- 
+    .get("https://opentdb.com/api.php?amount=10")
+    .then((res) => {
+      questions = res.data.results;
+      currentQuestionIndex = 0;
+      questionContainerElement.classList.remove("hide");
+      setNextQuestion();
+    })
+    .catch((err) => console.error(err));
 }
 
 // Mostrar pregunta.
@@ -48,10 +47,9 @@ function showQuestion(questionObj) {
   // Creación de botones con las respuestas.
   answers.forEach((answer) => {
     const button = document.createElement("button");
-    button.innerHTML = answer
-    button.classList.add("btn")
-    button.classList.add("btn-outline-primary")
-
+    button.innerHTML = answer;
+    button.classList.add("btn");
+    button.classList.add("btn-outline-primary");
 
     // Setear como respuesta correcta si en el objeto es "correct_answer:".
     if (answer == correct_answer) {
@@ -86,15 +84,17 @@ function setNextQuestion() {
 // Mostrar respuesta correcta en verde e icorrectas en rojo.
 function setStatusClass(element, correct) {
   //pinta la respuesta corre e incorrecta
+  console.log(element);
   if (correct) {
     // element.remove("btn")
-    element.classList.remove("btn-outline-primary")
-    element.classList.add("btn-success")
+    element.classList.remove("btn-outline-primary");
+    element.classList.add("btn-success");
   } else {
     // element.remove("btn")
-    element.classList.remove("btn-outline-primary")
+    element.classList.remove("btn-outline-primary");
     element.classList.add("btn-danger");
   }
+  element.disabled = true;
 }
 
 // Función para seleccionar respuesta.
@@ -112,7 +112,8 @@ function selectAnswer() {
     //si no quedan preguntas porque hemos terminado (10/10)
     startButton.innerText = "Restart"; //cambiamos el texto del botón start por "restart"
     startButton.classList.remove("d-none");
-    
+    startButton.classList.replace("btn-primary", "btn-warning");
+
     // volvemos a mostrar el botón start
     nextButton.classList.add("d-none");
   }
