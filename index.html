@@ -12,10 +12,9 @@
 
 <body>
 
-  <div class="p-3 bg-dark text-white d-flex align-items-center ">
-    <h1>QUIZ</h1>
-    
-    <div class="nota ms-auto "></div>
+  <div class="p-3 bg-dark text-white d-flex align-items-center justify-content-between">    
+      <h1>QUIZ</h1>
+      <div class="nota"></div>        
   </div>
 
   <br>
@@ -25,7 +24,8 @@
     <div id="question-container" class="hide">
 
       <div class="progress">
-        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
+        <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="75"
+          aria-valuemin="0" aria-valuemax="100" style="width: 75%;"></div>
       </div>
       <br>
       <div id="question">Question</div>
@@ -34,11 +34,11 @@
       <br>
     </div>
 
-    <div class="controls d-flex  justify-content-center">
+    <div class="controls d-flex  justify-content-center ">
 
       <button id="start-btn" class="btn btn-primary">Start</button>
 
-      <button id="next-btn" class="hide">Next</button>
+      <button id="next-btn" class="d-none btn btn-primary">Next</button>
 
     </div>
 

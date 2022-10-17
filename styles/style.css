@@ -2,14 +2,6 @@
   display: none;
 }
 
-.correct {
-  background-color: rgb(1, 149, 43);
-}
-
-.wrong {
-  background-color: rgb(196, 2, 2);
-}
-
 div h1 {
   font-weight: bold;
 }

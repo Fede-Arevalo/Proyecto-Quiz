@@ -11,8 +11,7 @@ let questions = [];
 
 // Botón para comenzar el Quiz.
 function startGame() {
-  startButton.classList.replace("btn", "hide");
-  startButton.classList.add("hide");
+  startButton.classList.add("d-none");
 
   axios
   .get("https://opentdb.com/api.php?amount=10")
@@ -108,11 +107,14 @@ function selectAnswer() {
     //si estamos en una pregunta que es menos que las preguuntas que quedan
     //es decir si son 10 preguntas y estamos en la 7
     //se muestra el boton siguiente porque aun quedan preguntas
-    nextButton.classList.remove("hide");
+    nextButton.classList.remove("d-none");
   } else {
     //si no quedan preguntas porque hemos terminado (10/10)
     startButton.innerText = "Restart"; //cambiamos el texto del botón start por "restart"
-    startButton.classList.remove("hide"); // volvemos a mostrar el botón start
+    startButton.classList.remove("d-none");
+    
+    // volvemos a mostrar el botón start
+    nextButton.classList.add("d-none");
   }
 }
 
@@ -127,7 +129,7 @@ nextButton.addEventListener("click", () => {
 
 // Esta función esconde el botón "Next" y quita las respuestas anteriores.
 function resetState() {
-  nextButton.classList.add("hide"); //escondemos el botón next
+  nextButton.classList.add("d-none"); //escondemos el botón next
   while (answerButtonsElement.firstChild) {
     //bucle que se ejecuta si answerButtonsElemetnos
     //tiene un primer hijo
