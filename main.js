@@ -3,14 +3,16 @@ const nextButton = document.getElementById("next-btn");
 const questionContainerElement = document.getElementById("question-container");
 const questionDiv = document.getElementById("question");
 const answerButtonsElement = document.getElementById("answer-buttons");
-const notaElement = document.querySelector(".nota");
+const scoreElement = document.querySelector(".score");
 
 let currentQuestionIndex;
-let nota = 0;
+let score = 0;
 let questions = [];
 
 // Botón para comenzar el Quiz.
 function startGame() {
+  resetButton();
+  scoreElement.innerHTML = `SCORE: <b>${score = 0}</b>`;
   startButton.classList.add("d-none");
 
   axios
@@ -59,14 +61,14 @@ function showQuestion(questionObj) {
     // Al hacer click en una respuesta suma o resta puntuación.
     button.addEventListener("click", function () {
       if (button.dataset.correct == "true") {
-        nota++;
-        notaElement.innerHTML = `SCORE: <b>${nota}</b>`;
+        score++;
+        scoreElement.innerHTML = `SCORE: <b>${score}</b>`;
       } else {
-        if (nota != 0) {
-          nota = nota - 0.5;
-          notaElement.innerHTML = `SCORE: <b>${nota}</b>`;
+        if (score != 0) {
+          score = score - 0.5;
+          scoreElement.innerHTML = `SCORE: <b>${score}</b>`;
         } else {
-          notaElement.innerHTML = `SCORE: <b>${nota}</b>`;
+          scoreElement.innerHTML = `SCORE: <b>${score}</b>`;
         }
       }
       selectAnswer();
@@ -83,8 +85,6 @@ function setNextQuestion() {
 
 // Mostrar respuesta correcta en verde e icorrectas en rojo.
 function setStatusClass(element, correct) {
-  //pinta la respuesta corre e incorrecta
-  console.log(element);
   if (correct) {
     // element.remove("btn")
     element.classList.remove("btn-outline-primary");
@@ -100,21 +100,16 @@ function setStatusClass(element, correct) {
 // Función para seleccionar respuesta.
 function selectAnswer() {
   Array.from(answerButtonsElement.children).forEach((button) => {
-    //llamamos a la función y le pasamos los botons y el botón correcto
     setStatusClass(button, button.dataset.correct);
   });
   if (questions.length > currentQuestionIndex + 1) {
-    //si estamos en una pregunta que es menos que las preguuntas que quedan
-    //es decir si son 10 preguntas y estamos en la 7
-    //se muestra el boton siguiente porque aun quedan preguntas
     nextButton.classList.remove("d-none");
+    increment();
   } else {
-    //si no quedan preguntas porque hemos terminado (10/10)
-    startButton.innerText = "Restart"; //cambiamos el texto del botón start por "restart"
+    startButton.innerText = "Restart";
     startButton.classList.remove("d-none");
     startButton.classList.replace("btn-primary", "btn-warning");
 
-    // volvemos a mostrar el botón start
     nextButton.classList.add("d-none");
   }
 }
@@ -132,9 +127,34 @@ nextButton.addEventListener("click", () => {
 function resetState() {
   nextButton.classList.add("d-none"); //escondemos el botón next
   while (answerButtonsElement.firstChild) {
-    //bucle que se ejecuta si answerButtonsElemetnos
-    //tiene un primer hijo
-    //borramos el primer hijo de answerButtonsElements
     answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
+}
+
+// Funciones para la "ProgressBar".
+function getProgress() {
+  var d = document.getElementById("progressbar").getAttribute("aria-valuenow");
+  return d;
+}
+
+function setProgress(value) {
+  document.getElementById("progressbar").setAttribute("aria-valuenow", value);
+  document
+    .getElementById("progressbar")
+    .setAttribute("style", "width: " + value + "%;");
+}
+
+function increment() {
+  var i = getProgress();
+  if (i < 100) {
+    i++;
+    setProgress((i += 9));
+  } else {
+    resetButton();
+  }
+}
+
+function resetButton() {
+  var r = getProgress();
+  setProgress((r = 0));
 }
