@@ -19,10 +19,19 @@ axios
 
 // Botón para comenzar el Quiz.
 function startGame() {
+  startButton.classList.replace("btn", "hide");
   startButton.classList.add("hide");
-  currentQuestionIndex = 0;
-  questionContainerElement.classList.remove("hide");
-  setNextQuestion();
+
+  axios
+  .get("https://opentdb.com/api.php?amount=10")
+  .then((res) => {
+    questions = res.data.results;
+    currentQuestionIndex = 0;
+    questionContainerElement.classList.remove("hide");
+    setNextQuestion();
+  })
+  .catch((err) => console.error(err));
+ 
 }
 
 // Mostrar pregunta.
@@ -48,7 +57,10 @@ function showQuestion(questionObj) {
   // Creación de botones con las respuestas.
   answers.forEach((answer) => {
     const button = document.createElement("button");
-    button.innerText = answer;
+    button.innerHTML = answer
+    button.classList.add("btn")
+    button.classList.add("btn-outline-primary")
+
 
     // Setear como respuesta correcta si en el objeto es "correct_answer:".
     if (answer == correct_answer) {
@@ -59,13 +71,13 @@ function showQuestion(questionObj) {
     button.addEventListener("click", function () {
       if (button.dataset.correct == "true") {
         nota++;
-        notaElement.innerHTML = "Tu puntuación: " + nota;
+        notaElement.innerHTML = `SCORE: <b>${nota}</b>`;
       } else {
         if (nota != 0) {
           nota = nota - 0.5;
-          notaElement.innerHTML = "Tu puntuación: " + nota;
+          notaElement.innerHTML = `SCORE: <b>${nota}</b>`;
         } else {
-          notaElement.innerHTML = "Tu puntuación: " + nota;
+          notaElement.innerHTML = `SCORE: <b>${nota}</b>`;
         }
       }
       selectAnswer();
@@ -84,9 +96,12 @@ function setNextQuestion() {
 function setStatusClass(element, correct) {
   //pinta la respuesta corre e incorrecta
   if (correct) {
-    element.classList.add("correct");
+    // element.remove("btn")
+    element.classList.remove("btn-outline-primary")
+    element.classList.add("btn btn-danger")
   } else {
-    element.classList.add("wrong");
+    // element.remove("btn")
+    element.classList.replace("btn btn-outline-primary","btn btn-danger");
   }
 }
 
