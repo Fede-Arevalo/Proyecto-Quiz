@@ -9,14 +9,6 @@ let currentQuestionIndex;
 let nota = 0;
 let questions = [];
 
-// Lectura de datos a través de API.
-axios
-  .get("https://opentdb.com/api.php?amount=10")
-  .then((res) => {
-    questions = res.data.results;
-  })
-  .catch((err) => console.error(err));
-
 // Botón para comenzar el Quiz.
 function startGame() {
   startButton.classList.replace("btn", "hide");
@@ -97,10 +89,12 @@ function setStatusClass(element, correct) {
   //pinta la respuesta corre e incorrecta
   if (correct) {
     // element.remove("btn")
-    element.classList.add("correct")
+    element.classList.remove("btn-outline-primary")
+    element.classList.add("btn-success")
   } else {
     // element.remove("btn")
-    element.classList.add("incorrect");
+    element.classList.remove("btn-outline-primary")
+    element.classList.add("btn-danger");
   }
 }
 
