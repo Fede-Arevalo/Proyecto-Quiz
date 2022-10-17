@@ -97,11 +97,10 @@ function setStatusClass(element, correct) {
   //pinta la respuesta corre e incorrecta
   if (correct) {
     // element.remove("btn")
-    element.classList.remove("btn-outline-primary")
-    element.classList.add("btn btn-danger")
+    element.classList.add("correct")
   } else {
     // element.remove("btn")
-    element.classList.replace("btn btn-outline-primary","btn btn-danger");
+    element.classList.add("incorrect");
   }
 }
 
