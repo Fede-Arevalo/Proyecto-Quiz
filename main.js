@@ -12,7 +12,7 @@ let questions = [];
 // Botón para comenzar el Quiz.
 function startGame() {
   resetButton();
-  scoreElement.innerHTML = `SCORE: <b>${score = 0}</b>`;
+  scoreElement.innerHTML = `SCORE: <b>${(score = 0)}</b>`;
   startButton.classList.add("d-none");
 
   axios
@@ -28,7 +28,10 @@ function startGame() {
 
 // Mostrar pregunta.
 function showQuestion(questionObj) {
-  questionDiv.innerText = questionObj.question;
+  const pregunta = questionObj.question;
+  const preguntaObj = pregunta.replace(/&quot;/g, '"').replace(/&#039;/g, "'");
+
+  questionDiv.innerText = preguntaObj;
 
   // Desestructuración del objeto para juntar las respuestas.
   const { correct_answer } = questionObj;
@@ -102,9 +105,9 @@ function selectAnswer() {
   Array.from(answerButtonsElement.children).forEach((button) => {
     setStatusClass(button, button.dataset.correct);
   });
+  increment();
   if (questions.length > currentQuestionIndex + 1) {
     nextButton.classList.remove("d-none");
-    increment();
   } else {
     startButton.innerText = "Restart";
     startButton.classList.remove("d-none");
@@ -146,15 +149,14 @@ function setProgress(value) {
 
 function increment() {
   let i = getProgress();
+
   if (i < 100) {
     i++;
     setProgress((i += 9));
-  } else {
-    resetButton();
   }
 }
 
 function resetButton() {
-  var r = getProgress();
-  setProgress(r);
+  let r = getProgress();
+  setProgress((r = 0));
 }
