@@ -18,6 +18,15 @@ Se ha utilizado HTML, CSS (Bootstrap) y JS Vanilla.
 
 ### Preview
 
+![image](https://user-images.githubusercontent.com/105200893/196425161-ce975fc6-c4c9-4d79-af35-ebfb03283a97.png)
+
+![image](https://user-images.githubusercontent.com/105200893/196424740-0fdc6b5a-b6fb-4ea3-9a56-4298a3064aec.png)
+
+![image](https://user-images.githubusercontent.com/105200893/196424900-06770410-71d7-45ac-be7e-5416b0893cda.png)
+
+![image](https://user-images.githubusercontent.com/105200893/196425091-80f3cd00-e7ec-44cc-a84b-598d4c358ff2.png)
+
+
 Muestra del formulario:
 
 
