@@ -6,8 +6,8 @@ El siguiente proyecto colaborativo consta de la creación de un Quiz cumpliendo 
 - Crear una página SPA para las preguntas.
 - Manejo de ES6.
 - Asincronía. Usar API de preguntas https://opentdb.com/.
-- APIs HTML5: Uso de Local storage , gráficas (opcional).
-- Sin frameworks y librerías externas en la medida de lo posible. Salvo frameworks de CSS como Bootstrap.
+- APIs.
+- Bootstrap como Framework de CSS.
 - Gestión del proyecto desde el inicio en un único repositorio compartido (como colaboradores) en Github.
 - Código limpio, buenas prácticas.
 - Readme con explicación del proyecto.
@@ -25,13 +25,6 @@ Se ha utilizado HTML, CSS (Bootstrap) y JS Vanilla.
 ![image](https://user-images.githubusercontent.com/105200893/196424900-06770410-71d7-45ac-be7e-5416b0893cda.png)
 
 ![image](https://user-images.githubusercontent.com/105200893/196425091-80f3cd00-e7ec-44cc-a84b-598d4c358ff2.png)
-
-
-Muestra del formulario:
-
-
-Muestra de la página de usuarios:
-
 
 
 ---
