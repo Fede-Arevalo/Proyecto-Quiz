@@ -133,7 +133,7 @@ function resetState() {
 
 // Funciones para la "ProgressBar".
 function getProgress() {
-  var d = document.getElementById("progressbar").getAttribute("aria-valuenow");
+  let d = document.getElementById("progressbar").getAttribute("aria-valuenow");
   return d;
 }
 
@@ -145,7 +145,7 @@ function setProgress(value) {
 }
 
 function increment() {
-  var i = getProgress();
+  let i = getProgress();
   if (i < 100) {
     i++;
     setProgress((i += 9));
@@ -156,5 +156,5 @@ function increment() {
 
 function resetButton() {
   var r = getProgress();
-  setProgress((r = 0));
+  setProgress(r);
 }
