@@ -89,11 +89,9 @@ function setNextQuestion() {
 // Mostrar respuesta correcta en verde e icorrectas en rojo.
 function setStatusClass(element, correct) {
   if (correct) {
-    // element.remove("btn")
     element.classList.remove("btn-outline-primary");
     element.classList.add("btn-success");
   } else {
-    // element.remove("btn")
     element.classList.remove("btn-outline-primary");
     element.classList.add("btn-danger");
   }
@@ -128,13 +126,13 @@ nextButton.addEventListener("click", () => {
 
 // Esta función esconde el botón "Next" y quita las respuestas anteriores.
 function resetState() {
-  nextButton.classList.add("d-none"); //escondemos el botón next
+  nextButton.classList.add("d-none");
   while (answerButtonsElement.firstChild) {
     answerButtonsElement.removeChild(answerButtonsElement.firstChild);
   }
 }
 
-// Funciones para la "ProgressBar".
+// Funciones para la "Barra de progreso".
 function getProgress() {
   let d = document.getElementById("progressbar").getAttribute("aria-valuenow");
   return d;
